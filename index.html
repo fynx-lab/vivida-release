@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Vivida — 本地图片浏览器</title>
+  <title>Vivida — local image browser</title>
   <link rel="icon" href="favicon.ico">
-  <meta name="description" content="Vivida 是一个 Windows 本地图片浏览器。文件夹一列出来，网格就在。">
+  <meta name="description" content="Vivida is a local image browser for Windows. The folder grid appears as soon as the directory is listed.">
   <style>
     :root {
       --blue: #1463f5;
@@ -18,7 +18,7 @@
     * { box-sizing: border-box; }
     html, body { margin: 0; }
     body {
-      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-family: "Segoe UI", sans-serif;
       color: var(--ink);
       background: var(--paper);
     }
@@ -93,29 +93,29 @@
     <div class="wrap">
       <img class="mark" src="icon.png" alt="">
       <h1>Vivida</h1>
-      <p class="lead">本地图片浏览器。文件夹一列出来，网格就在。缩略图随后补上，不用等整夹图都解码完。</p>
+      <p class="lead">A local image browser. The grid appears as soon as the folder is listed. Thumbnails fill in afterward, so a large folder does not wait on every decode.</p>
       <div class="actions">
-        <a class="download" href="https://github.com/fynx-lab/vivida-release/releases/download/v0.0.1/vivida-0.0.1-windows-x64.zip">下载 Windows 版</a>
-        <span class="meta">0.0.1 · 64 位 · 解压后运行 vivida.exe · <a href="https://github.com/fynx-lab/vivida-release/issues">反馈问题</a></span>
+        <a class="download" href="https://github.com/fynx-lab/vivida-release/releases/download/v0.0.1/vivida-0.0.1-windows-x64.zip">Download for Windows</a>
+        <span class="meta">0.0.1 · 64-bit · Unzip and run vivida.exe · <a href="https://github.com/fynx-lab/vivida-release/issues">Report an issue</a></span>
       </div>
     </div>
   </header>
   <section class="facts wrap">
     <article class="fact">
-      <b>先看到格子</b>
-      <p>大文件夹打开时先列出文件。屏幕里的缩略图才开始解码，滚出画面的会让位。</p>
+      <b>The grid comes first</b>
+      <p>Files are listed immediately. Only the thumbnails on screen are decoded, and off-screen ones make room.</p>
     </article>
     <article class="fact">
-      <b>预览按窗口来</b>
-      <p>第一眼是屏幕大小的图。放到 100% 时才解码原始像素，不必一打开就吃完整张大图。</p>
+      <b>Preview matches the window</b>
+      <p>The first view is sized to the screen. Original pixels are decoded when you zoom to 100%, not the moment the picture opens.</p>
     </article>
     <article class="fact">
-      <b>常见格式都能开</b>
-      <p>JPEG、PNG、WebP、TIFF、GIF、AVIF、HEIC，以及 BMP、TGA。动图在预览里边解码边播放。</p>
+      <b>Common formats included</b>
+      <p>JPEG, PNG, WebP, TIFF, GIF, AVIF, HEIC, plus BMP and TGA. Animated GIFs start playing while later frames are still decoding.</p>
     </article>
   </section>
   <footer>
-    <p>侧栏收藏、按名称 / 时间 / 大小排序、重命名，删除会进回收站。</p>
+    <p>Pin folders from the sidebar, sort by name, date, or size, and rename files. Deleted files go to the Recycle Bin.</p>
   </footer>
 </body>
 </html>
