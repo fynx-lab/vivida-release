@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vivida — 本地图片浏览器</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="Vivida 是一个 Windows 本地图片浏览器。文件夹一列出来，网格就在。">
+  <style>
+    :root {
+      --blue: #1463f5;
+      --blue-deep: #0d4ed4;
+      --ink: #142033;
+      --muted: #5c6b80;
+      --paper: #f4f7fb;
+      --line: #d9e2ee;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    a { color: inherit; }
+    .hero {
+      background: var(--blue);
+      color: white;
+      padding: 72px 24px 64px;
+    }
+    .wrap { max-width: 880px; margin: 0 auto; }
+    .mark {
+      width: 96px;
+      height: 96px;
+      display: block;
+    }
+    h1 {
+      margin: 28px 0 0;
+      font-size: 64px;
+      line-height: 1;
+      font-weight: 650;
+      letter-spacing: -0.04em;
+    }
+    .lead {
+      max-width: 36rem;
+      margin: 18px 0 0;
+      font-size: 22px;
+      line-height: 1.45;
+      font-weight: 400;
+    }
+    .actions { margin-top: 32px; display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+    .download {
+      display: inline-block;
+      background: white;
+      color: var(--blue-deep);
+      text-decoration: none;
+      font-weight: 650;
+      padding: 14px 22px;
+      border-radius: 999px;
+    }
+    .download:hover { background: #eaf1ff; }
+    .meta { color: rgba(255,255,255,0.82); font-size: 14px; }
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      padding: 28px 24px 64px;
+    }
+    .fact {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px 20px 20px;
+    }
+    .fact b { display: block; font-size: 18px; margin-bottom: 8px; }
+    .fact p { margin: 0; color: var(--muted); line-height: 1.5; }
+    footer {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 24px 48px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    footer a { color: var(--blue-deep); }
+    @media (max-width: 720px) {
+      h1 { font-size: 48px; }
+      .facts { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <img class="mark" src="icon.png" alt="">
+      <h1>Vivida</h1>
+      <p class="lead">本地图片浏览器。文件夹一列出来，网格就在。缩略图随后补上，不用等整夹图都解码完。</p>
+      <div class="actions">
+        <a class="download" href="https://github.com/z4none/vivida/releases/download/v0.0.1/vivida-0.0.1-windows-x64.zip">下载 Windows 版</a>
+        <span class="meta">0.0.1 · 64 位 · 解压后运行 vivida.exe</span>
+      </div>
+    </div>
+  </header>
+  <section class="facts wrap">
+    <article class="fact">
+      <b>先看到格子</b>
+      <p>大文件夹打开时先列出文件。屏幕里的缩略图才开始解码，滚出画面的会让位。</p>
+    </article>
+    <article class="fact">
+      <b>预览按窗口来</b>
+      <p>第一眼是屏幕大小的图。放到 100% 时才解码原始像素，不必一打开就吃完整张大图。</p>
+    </article>
+    <article class="fact">
+      <b>常见格式都能开</b>
+      <p>JPEG、PNG、WebP、TIFF、GIF、AVIF、HEIC，以及 BMP、TGA。动图在预览里边解码边播放。</p>
+    </article>
+  </section>
+  <footer>
+    <p>侧栏收藏、按名称 / 时间 / 大小排序、重命名，删除会进回收站。</p>
+  </footer>
+</body>
+</html>
