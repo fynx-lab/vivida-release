@@ -8,8 +8,8 @@ Repository: public `fynx-lab/vivida-release` site checkout. The application and 
 
 Add two page types to the local Astro site in all eight existing locales (`en`, `zh-CN`, `zh-TW`, `ja`, `ko`, `fr`, `de`, `es`):
 
-- `/vivida-release/privacy/` and `/vivida-release/<locale>/privacy/`: one page titled **Privacy & Terms** (localized), with visibly separate Privacy and Terms sections and internal section links.
-- `/vivida-release/guide/` and `/vivida-release/<locale>/guide/`: a concise **User Guide** (localized).
+- `/privacy/` and `/<locale>/privacy/` at the custom domain root: one page titled **Privacy & Terms** (localized), with visibly separate Privacy and Terms sections and internal section links.
+- `/guide/` and `/<locale>/guide/` at the custom domain root: a concise **User Guide** (localized).
 
 Add a Guide link in the shared navigation and Guide / Privacy & Terms links in the shared footer, including on the homepage. Preserve the existing single-download-CTA rule on the homepage; do not add another installer CTA to the footer or policies. Keep the current dark, violet-accented visual system and current application icon. Layouts use clear headings, short paragraphs, numbered instructions and keyboard-friendly shortcut tables; mobile tables must remain readable without horizontal page overflow. The language selector must preserve the current page type when switching languages. Direct page URLs never auto-redirect; only the English *homepage* retains the existing browser-language redirect.
 

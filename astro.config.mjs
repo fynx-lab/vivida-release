@@ -2,8 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://fynx-lab.github.io',
-  base: '/vivida-release',
+  site: 'https://vivida.fynxlab.com',
   trailingSlash: 'always',
   output: 'static',
   i18n: {
