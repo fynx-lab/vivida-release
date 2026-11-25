@@ -1,0 +1,147 @@
+---
+import { asset, messages, type Locale } from '../lib/site';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = messages[locale];
+const slides = [
+  { src: asset('hero.png'), alt: t.screen_alt, width: 1805, height: 1218 },
+  { src: asset('hero-2.png'), alt: t.screen_alt_2, width: 1200, height: 830 },
+];
+const position = (index: number) => t.screen_position.replace('{current}', String(index + 1)).replace('{total}', String(slides.length));
+---
+<div class="screenshot-gallery" data-screenshots>
+  <div class="screenshot-stage">
+    <button class="screenshot-trigger" type="button" aria-label={t.screen_full} disabled>
+      <img src={slides[0].src} width={slides[0].width} height={slides[0].height} alt={slides[0].alt} fetchpriority="high" decoding="async" />
+    </button>
+    <button class="screen-nav screen-prev" type="button" data-slide-direction="-1" aria-label={t.screen_previous} hidden>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m15 5-7 7 7 7" /></svg>
+    </button>
+    <button class="screen-nav screen-next" type="button" data-slide-direction="1" aria-label={t.screen_next} hidden>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg>
+    </button>
+  </div>
+  <div class="screen-pagination" hidden>
+    <div class="screen-indicators">
+      {slides.map((slide, index) => <button type="button" data-slide-index={index} aria-label={position(index)} aria-current={index === 0 ? 'true' : undefined}><span aria-hidden="true"></span></button>)}
+    </div>
+    <output class="screen-count" data-position aria-live="polite" aria-label={position(0)}>01 / 02</output>
+  </div>
+  <dialog class="screenshot-lightbox" aria-label={t.screen_full}>
+    <div class="lightbox-inner">
+      <button class="lightbox-close" type="button" data-close aria-label={t.screen_close} autofocus>
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 5 19 19M19 5 5 19" /></svg>
+      </button>
+      <div class="lightbox-frame">
+        <img data-lightbox-image width={slides[0].width} height={slides[0].height} alt="" />
+        <button class="screen-nav screen-prev" type="button" data-slide-direction="-1" aria-label={t.screen_previous}>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m15 5-7 7 7 7" /></svg>
+        </button>
+        <button class="screen-nav screen-next" type="button" data-slide-direction="1" aria-label={t.screen_next}>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg>
+        </button>
+      </div>
+      <output class="lightbox-count" data-dialog-position aria-live="polite" aria-label={position(0)}>01 / 02</output>
+    </div>
+  </dialog>
+</div>
+<script is:inline define:vars={{ slides, positionTemplate: t.screen_position }}>
+  (() => {
+    const gallery = document.querySelector('[data-screenshots]');
+    const opener = gallery.querySelector('.screenshot-trigger');
+    const preview = opener.querySelector('img');
+    const dialog = gallery.querySelector('dialog');
+    const enlarged = dialog.querySelector('[data-lightbox-image]');
+    const indicators = gallery.querySelectorAll('[data-slide-index]');
+    let current = 0;
+
+    function show(index) {
+      current = (index + slides.length) % slides.length;
+      const slide = slides[current];
+      preview.src = slide.src;
+      preview.alt = slide.alt;
+      preview.width = slide.width;
+      preview.height = slide.height;
+      if (dialog.open) {
+        enlarged.src = slide.src;
+        enlarged.alt = slide.alt;
+        enlarged.width = slide.width;
+        enlarged.height = slide.height;
+      }
+      indicators.forEach((button, i) => {
+        if (i === current) button.setAttribute('aria-current', 'true');
+        else button.removeAttribute('aria-current');
+      });
+      const label = positionTemplate.replace('{current}', String(current + 1)).replace('{total}', String(slides.length));
+      for (const count of gallery.querySelectorAll('[data-position], [data-dialog-position]')) {
+        count.textContent = `${String(current + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+        count.setAttribute('aria-label', label);
+      }
+    }
+
+    gallery.querySelectorAll('[data-slide-direction]').forEach((button) => {
+      button.addEventListener('click', () => show(current + Number(button.dataset.slideDirection)));
+    });
+    indicators.forEach((button) => button.addEventListener('click', () => show(Number(button.dataset.slideIndex))));
+    if (typeof dialog.showModal === 'function') {
+      opener.disabled = false;
+      opener.addEventListener('click', () => {
+        const slide = slides[current];
+        enlarged.src = slide.src;
+        enlarged.alt = slide.alt;
+        enlarged.width = slide.width;
+        enlarged.height = slide.height;
+        dialog.showModal();
+      });
+      dialog.querySelector('[data-close]').addEventListener('click', () => dialog.close());
+      dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+      dialog.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+          event.preventDefault();
+          show(current + (event.key === 'ArrowRight' ? 1 : -1));
+        }
+      });
+      dialog.addEventListener('close', () => opener.focus({ preventScroll: true }));
+    }
+    gallery.querySelectorAll('[hidden]').forEach((control) => { control.hidden = false; });
+  })();
+</script>
+<style>
+  .screenshot-gallery { position: relative; z-index: 1; }
+  .screenshot-stage { position: relative; }
+  .screenshot-trigger { display: block; padding: 0; width: 100%; aspect-ratio: 1805 / 1218; border-radius: 9px; background: #191e25; border: 1px solid #414850; box-shadow: 0 32px 70px #0009, 0 0 0 1px #ffffff0d; overflow: hidden; color: inherit; cursor: zoom-in; transition: border-color .2s ease, transform .24s ease; }
+  .screenshot-trigger:not(:disabled):hover { transform: translateY(-3px); border-color: #81909c; }
+  .screenshot-trigger:disabled { cursor: default; }
+  .screenshot-trigger img { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .screen-nav { position: absolute; z-index: 2; top: 50%; transform: translateY(-50%); display: grid; place-items: center; width: 42px; height: 42px; padding: 0; border: 1px solid #ffffff40; border-radius: 50%; background: #11161de8; color: #f0f2f0; cursor: pointer; transition: background-color .2s ease, border-color .2s ease; }
+  .screen-nav:hover { background: #30294a; border-color: #a78bff; }
+  .screen-prev { left: 12px; }
+  .screen-next { right: 12px; }
+  .screen-pagination { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 15px; }
+  .screen-indicators { display: flex; align-items: center; gap: 3px; }
+  .screen-indicators button { display: grid; place-items: center; width: 30px; height: 30px; padding: 0; border: 0; background: none; cursor: pointer; }
+  .screen-indicators span { display: block; width: 7px; height: 7px; border-radius: 50%; background: #77818e; transition: width .2s ease, border-radius .2s ease, background-color .2s ease; }
+  .screen-indicators button[aria-current='true'] span { width: 21px; border-radius: 8px; background: #a78bff; }
+  .screen-count, .lightbox-count { color: #b4bdc4; font-size: .73rem; font-variant-numeric: tabular-nums; letter-spacing: .08em; }
+  .screenshot-lightbox { position: fixed; inset: 0; box-sizing: border-box; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: clamp(12px, 2.5vw, 32px); border: 0; background: #0c1017f7; color: #f0f2f0; }
+  .screenshot-lightbox[open] { display: grid; place-items: center; }
+  .screenshot-lightbox::backdrop { background: #05070de6; }
+  .lightbox-inner { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; justify-items: center; gap: 10px; width: min(100%, 1500px); max-height: 100%; }
+  .lightbox-close { justify-self: end; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid #ffffff40; border-radius: 50%; background: #1b222d; color: inherit; cursor: pointer; }
+  .lightbox-close:hover { background: #30294a; border-color: #a78bff; }
+  .lightbox-frame { display: grid; place-items: center; position: relative; width: 100%; min-height: 0; }
+  .lightbox-frame img { display: block; width: auto; height: auto; max-width: 100%; max-height: calc(100dvh - 150px); object-fit: contain; box-shadow: 0 20px 65px #0009; }
+  .lightbox-count { padding: 5px 0; }
+  .screenshot-gallery button:focus-visible { outline: 2px solid #c7b7ff; outline-offset: 4px; }
+  .screenshot-gallery [hidden] { display: none !important; }
+  @media (max-width: 520px) {
+    .screen-nav { width: 36px; height: 36px; }
+    .screen-prev { left: 7px; }
+    .screen-next { right: 7px; }
+    .lightbox-frame img { max-height: calc(100dvh - 125px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .screenshot-trigger, .screen-nav, .screen-indicators span { transition: none; }
+  }
+</style>

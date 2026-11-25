@@ -1,6 +1,7 @@
 ---
 import SiteFrame from './SiteFrame.astro';
-import { asset, messages, release, type Locale } from '../lib/site';
+import HeroGallery from '../components/HeroGallery.astro';
+import { messages, release, type Locale } from '../lib/site';
 
 interface Props { locale: Locale }
 const { locale } = Astro.props;
@@ -28,9 +29,7 @@ const features = [
         </div>
       </div>
       <div class="hero-art">
-        <a class="screenshot-link" href={asset('hero.png')} target="_blank" rel="noopener" aria-label={t.screen_full}>
-          <img src={asset('hero.png')} width="1805" height="1218" alt={t.screen_alt} fetchpriority="high" decoding="async" />
-        </a>
+        <HeroGallery locale={locale} />
         <span class="screen-glow" aria-hidden="true"></span>
       </div>
     </section>
