@@ -1,0 +1,16 @@
+{
+  "name": "vivida-landing",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "npm run check:locales && astro build && node scripts/check-site.mjs",
+    "preview": "astro preview --host 127.0.0.1",
+    "check:locales": "node scripts/check-locales.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.6",
+    "astro": "^7.4.13"
+  }
+}

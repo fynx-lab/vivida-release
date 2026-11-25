@@ -1,0 +1,84 @@
+---
+import SiteFrame from './SiteFrame.astro';
+import { documents, release, type Locale } from '../lib/site';
+
+interface Props { locale: Locale; page: 'guide' | 'privacy' }
+const { locale, page } = Astro.props;
+const t = documents[locale];
+const guideSections = [
+  ['start', t.guide_start_title, t.guide_start],
+  ['favorites', t.guide_fav_title, t.guide_fav],
+  ['grid', t.guide_grid_title, t.guide_grid],
+  ['viewer', t.guide_viewer_title, t.guide_viewer],
+  ['settings', t.guide_settings_title, t.guide_settings],
+];
+const privacySections = [
+  ['local', t.privacy_local_title, t.privacy_local],
+  ['updates', t.privacy_update_title, t.privacy_update],
+  ['website', t.privacy_web_title, t.privacy_web],
+  ['questions', t.privacy_contact_title, t.privacy_contact],
+];
+const termsSections = [
+  ['use', t.terms_scope_title, t.terms_scope],
+  ['external', t.terms_services_title, t.terms_services],
+  ['availability', t.terms_availability_title, t.terms_availability],
+  ['changes', t.terms_changes_title, t.terms_changes],
+];
+const gridShortcuts = [
+  ['↑ ↓ ← → / Home / End', t.grid_move],
+  ['Enter', t.grid_open],
+  ['Backspace', t.grid_up],
+  ['Ctrl + wheel', t.grid_scale],
+  ['F2', t.grid_rename],
+  ['Delete', t.grid_delete],
+  ['Ctrl + C', t.grid_copy],
+];
+const viewerShortcuts = [
+  ['← → / A D', t.viewer_nav],
+  ['Home / End', t.viewer_ends],
+  [t.viewer_mouse_keys, t.viewer_mouse],
+  ['+ / − / 0 / 1', t.viewer_zoom],
+  ['R / Shift + R', t.viewer_rotate],
+  ['F11', t.viewer_full],
+  ['Esc / Backspace', t.viewer_exit],
+];
+const title = page === 'guide' ? t.guide_title : t.policy_title;
+const description = page === 'guide' ? t.guide_description : t.policy_description;
+---
+<SiteFrame locale={locale} page={page} title={`${title} — Vivida`} description={description}>
+  <main class="document-page wrap">
+    <header class="document-hero">
+      <p class="eyebrow">Vivida / {page === 'guide' ? t.nav_guide : t.nav_policy}</p>
+      <h1>{title}</h1>
+      <p>{page === 'guide' ? t.guide_intro : t.policy_intro}</p>
+      {page === 'privacy' && <nav class="document-tabs"><a href="#privacy">{t.privacy_title}</a><a href="#terms">{t.terms_title}</a></nav>}
+    </header>
+    {page === 'guide' ? <div class="document-body">
+      {guideSections.map(([id, heading, body], index) => <section id={id} class="document-section">
+        <span class="section-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+        <h2>{heading}</h2><p>{body}</p>
+      </section>)}
+      <section id="shortcuts" class="document-section">
+        <span class="section-number" aria-hidden="true">06</span><h2>{t.guide_shortcuts_title}</h2>
+        <div class="shortcut-group"><h3>{t.guide_grid_shortcuts}</h3><div class="shortcut-head"><span>{t.shortcut_keys}</span><span>{t.shortcut_action}</span></div>
+          <dl>{gridShortcuts.map(([keys, action]) => <div class="shortcut-row"><dt><kbd>{keys}</kbd></dt><dd>{action}</dd></div>)}</dl>
+        </div>
+        <div class="shortcut-group"><h3>{t.guide_viewer_shortcuts}</h3><div class="shortcut-head"><span>{t.shortcut_keys}</span><span>{t.shortcut_action}</span></div>
+          <dl>{viewerShortcuts.map(([keys, action]) => <div class="shortcut-row"><dt><kbd>{keys}</kbd></dt><dd>{action}</dd></div>)}</dl>
+        </div>
+      </section>
+    </div> : <div class="document-body">
+      <section id="privacy" class="document-block"><h2>{t.privacy_title}</h2>
+        {privacySections.map(([id, heading, body]) => <section id={id} class="document-subsection"><h3>{heading}</h3><p>{body}</p>
+          {id === 'website' && <a class="document-link" href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">{t.github_privacy} ↗</a>}
+          {id === 'questions' && <a class="document-link" href={release.issues}>{t.privacy_contact_title} ↗</a>}
+        </section>)}
+      </section>
+      <section id="terms" class="document-block"><h2>{t.terms_title}</h2>
+        {termsSections.map(([id, heading, body]) => <section id={id} class="document-subsection"><h3>{heading}</h3><p>{body}</p></section>)}
+        <p class="updated-date">{t.updated}: <time datetime="2026-11-25">2026-11-25</time></p>
+        <p class="legal-note">{t.legal_review}</p>
+      </section>
+    </div>}
+  </main>
+</SiteFrame>

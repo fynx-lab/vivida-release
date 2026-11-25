@@ -1,0 +1,55 @@
+---
+import SiteFrame from './SiteFrame.astro';
+import { asset, messages, release, type Locale } from '../lib/site';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = messages[locale];
+const formats = ['JPEG', 'PNG', 'WebP', 'TIFF', 'GIF', 'AVIF', 'HEIC / HEIF', 'BMP', 'TGA'];
+const features = [
+  [t.feature_1_title, t.feature_1_body],
+  [t.feature_2_title, t.feature_2_body],
+  [t.feature_3_title, t.feature_3_body],
+];
+---
+<SiteFrame locale={locale} page="home" title={t.title} description={t.description}>
+  <main>
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>{t.eyebrow}</p>
+        <h1 id="hero-title">{t.hero_title}</h1>
+        <p class="hero-description">{t.hero_description}</p>
+        <div class="hero-action">
+          <a class="download" href={release.download}>
+            <span>{t.download}</span>
+            <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-5-5 5 5 5-5M4 17v3h16v-3"/></svg>
+          </a>
+          <p class="download-details">{t.download_details.replace('{version}', release.version)}</p>
+        </div>
+      </div>
+      <div class="hero-art">
+        <a class="screenshot-link" href={asset('hero.png')} target="_blank" rel="noopener" aria-label={t.screen_full}>
+          <img src={asset('hero.png')} width="1805" height="1218" alt={t.screen_alt} fetchpriority="high" decoding="async" />
+        </a>
+        <span class="screen-glow" aria-hidden="true"></span>
+      </div>
+    </section>
+    <section id="features" class="features wrap" aria-labelledby="features-title">
+      <div class="section-intro">
+        <p class="eyebrow">{t.features_eyebrow}</p>
+        <h2 id="features-title">{t.features_title}</h2>
+      </div>
+      <ol class="feature-grid">
+        {features.map(([title, body], index) => <li class="feature-card">
+          <span class="feature-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+          <h3>{title}</h3>
+          <p>{body}</p>
+        </li>)}
+      </ol>
+    </section>
+    <section class="formats wrap" aria-labelledby="formats-title">
+      <div class="format-copy"><h2 id="formats-title">{t.formats_title}</h2><p>{t.formats_description}</p></div>
+      <ul class="format-list">{formats.map((format) => <li>{format}</li>)}</ul>
+    </section>
+  </main>
+</SiteFrame>

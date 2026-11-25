@@ -1,0 +1,88 @@
+---
+import '../styles/global.css';
+import { asset, documents, localeNames, localePath, locales, messages, release, type Locale, type PageKind } from '../lib/site';
+
+interface Props { locale: Locale; page: PageKind; title: string; description: string }
+const { locale, page, title, description } = Astro.props;
+const t = messages[locale];
+const d = documents[locale];
+const canonical = new URL(localePath(locale, page), Astro.site).href;
+const sharingImage = new URL(asset(page === 'home' ? 'hero.png' : 'icon.png'), Astro.site).href;
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#11161d" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {locales.map((other) => <link rel="alternate" hreflang={other} href={new URL(localePath(other, page), Astro.site).href} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL(localePath('en', page), Astro.site).href} />
+    <link rel="icon" type="image/x-icon" href={asset('favicon.ico')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Vivida" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={sharingImage} />
+    <meta name="twitter:card" content={page === 'home' ? 'summary_large_image' : 'summary'} />
+    <link rel="sitemap" type="application/xml" href={new URL(asset('sitemap-index.xml'), Astro.site).href} />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header wrap">
+        <a class="brand" href={localePath(locale)} aria-label="Vivida">
+          <img src={asset('icon.png')} alt="" width="36" height="36" />
+          <span>vivida<span class="brand-dot">.</span></span>
+        </a>
+        <nav class="nav-actions">
+          <a class="nav-link features-link" href={`${localePath(locale)}#features`}>{t.nav_features}</a>
+          <a class="nav-link" href={localePath(locale, 'guide')} aria-current={page === 'guide' ? 'page' : undefined}>{d.nav_guide}</a>
+          <a class="nav-link releases-link" href={release.latest}>{t.nav_release}</a>
+          <details class="language-menu">
+            <summary aria-label={t.language_label}>
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>
+              <span>{localeNames[locale]}</span>
+              <svg aria-hidden="true" viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m2 4 4 4 4-4"/></svg>
+            </summary>
+            <ul class="language-list">
+              {locales.map((other) => <li><a href={localePath(other, page)} lang={other} hreflang={other} data-language={other} aria-current={locale === other ? 'page' : undefined}>{localeNames[other]}</a></li>)}
+            </ul>
+          </details>
+        </nav>
+      </header>
+      <slot />
+      <footer class="site-footer wrap">
+        <div class="footer-top"><span class="footer-brand">Vivida<span class="brand-dot">.</span></span><div class="footer-links"><a href={localePath(locale, 'guide')}>{d.nav_guide}</a><a href={localePath(locale, 'privacy')}>{d.nav_policy}</a><a href={release.latest}>{t.footer_release}</a><a href={release.issues}>{t.footer_issues}</a></div></div>
+        <p class="footer-note">{t.footer_note}</p>
+      </footer>
+    </div>
+    <script is:inline define:vars={{ base: localePath('en'), currentLocale: locale, pageKind: page, supportedLocales: locales }}>
+      (() => {
+        const key = 'vivida-page-language';
+        const supported = new Set(supportedLocales);
+        const chosen = (language) => {
+          const value = String(language || '').toLowerCase().replace(/_/g, '-');
+          if (value === 'zh' || value.startsWith('zh-hans') || /^zh-(cn|sg)(-|$)/.test(value)) return 'zh-CN';
+          if (value.startsWith('zh-hant') || /^zh-(tw|hk|mo)(-|$)/.test(value)) return 'zh-TW';
+          const main = value.split('-')[0];
+          return supported.has(main) ? main : null;
+        };
+        document.querySelectorAll('[data-language]').forEach((link) => {
+          link.addEventListener('click', () => {
+            try { localStorage.setItem(key, link.dataset.language); } catch { /* private mode */ }
+          });
+        });
+        if (pageKind !== 'home' || currentLocale !== 'en') return;
+        let saved = null;
+        try { saved = localStorage.getItem(key); } catch { /* private mode */ }
+        const languages = navigator.languages?.length ? navigator.languages : [navigator.language];
+        const detected = languages.map(chosen).find(Boolean) || 'en';
+        const target = supported.has(saved) ? saved : detected;
+        if (target !== 'en') location.replace(base + target + '/' + location.search + location.hash);
+      })();
+    </script>
+  </body>
+</html>
