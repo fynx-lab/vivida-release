@@ -34,7 +34,7 @@ const position = (index: number) => t.screen_position.replace('{current}', Strin
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 5 19 19M19 5 5 19" /></svg>
       </button>
       <div class="lightbox-frame">
-        <img data-lightbox-image width={slides[0].width} height={slides[0].height} alt="" />
+        <img data-lightbox-image width={slides[0].width} height={slides[0].height} alt="" draggable="false" />
         <button class="screen-nav screen-prev" type="button" data-slide-direction="-1" aria-label={t.screen_previous}>
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m15 5-7 7 7 7" /></svg>
         </button>
@@ -131,7 +131,7 @@ const position = (index: number) => t.screen_position.replace('{current}', Strin
   .lightbox-close { justify-self: end; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid #ffffff40; border-radius: 50%; background: #1b222d; color: inherit; cursor: pointer; }
   .lightbox-close:hover { background: #30294a; border-color: #a78bff; }
   .lightbox-frame { display: grid; place-items: center; position: relative; width: 100%; min-height: 0; }
-  .lightbox-frame img { display: block; width: auto; height: auto; max-width: 100%; max-height: calc(100dvh - 150px); object-fit: contain; box-shadow: 0 20px 65px #0009; }
+  .lightbox-frame img { display: block; width: auto; height: auto; max-width: 100%; max-height: calc(100dvh - 150px); object-fit: contain; box-shadow: 0 20px 65px #0009; user-select: none; -webkit-user-select: none; -webkit-user-drag: none; }
   .lightbox-count { padding: 5px 0; }
   .screenshot-gallery button:focus-visible { outline: 2px solid #c7b7ff; outline-offset: 4px; }
   .screenshot-gallery [hidden] { display: none !important; }

@@ -37,6 +37,7 @@ for (const locale of locales) for (const page of pages) {
     assert(html.includes('src="/hero.png"'), `${id}: first screenshot path`);
     assert(html.includes('/hero-2.png'), `${id}: second screenshot path`);
     assert(html.includes('data-screenshots') && html.includes('<dialog'), `${id}: slideshow and lightbox`);
+    assert(/<img data-lightbox-image[^>]*draggable="false"/.test(html), `${id}: enlarged image must not be draggable`);
     assert(/<button class="screenshot-trigger"[^>]* disabled/.test(html), `${id}: no-script screenshot fallback`);
     assert(/<div class="screen-pagination" hidden/.test(html), `${id}: no-script controls hidden`);
     assert(!html.includes('href="/hero.png"'), `${id}: screenshot must not open a new page`);
