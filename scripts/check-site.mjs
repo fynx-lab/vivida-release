@@ -37,6 +37,8 @@ for (const locale of locales) for (const page of pages) {
     assert(html.includes('src="/hero.png"'), `${id}: first screenshot path`);
     assert(html.includes('/hero-2.png'), `${id}: second screenshot path`);
     assert(html.includes('data-screenshots') && html.includes('<dialog'), `${id}: slideshow and lightbox`);
+    assert(/<dialog[^>]*><button class="lightbox-close"/.test(html), `${id}: close button must not be inside image layout`);
+    if (locale === 'zh-CN') assert(html.includes('目录秒开，图像即刻就位。'), 'zh-CN/home: approved hero copy');
     assert(/<img data-lightbox-image[^>]*draggable="false"/.test(html), `${id}: enlarged image must not be draggable`);
     assert(/<button class="screenshot-trigger"[^>]* disabled/.test(html), `${id}: no-script screenshot fallback`);
     assert(/<div class="screen-pagination" hidden/.test(html), `${id}: no-script controls hidden`);

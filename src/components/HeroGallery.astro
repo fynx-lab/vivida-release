@@ -29,10 +29,10 @@ const position = (index: number) => t.screen_position.replace('{current}', Strin
     <output class="screen-count" data-position aria-live="polite" aria-label={position(0)}>01 / 02</output>
   </div>
   <dialog class="screenshot-lightbox" aria-label={t.screen_full}>
+    <button class="lightbox-close" type="button" data-close aria-label={t.screen_close} autofocus>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 5 19 19M19 5 5 19" /></svg>
+    </button>
     <div class="lightbox-inner">
-      <button class="lightbox-close" type="button" data-close aria-label={t.screen_close} autofocus>
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 5 19 19M19 5 5 19" /></svg>
-      </button>
       <div class="lightbox-frame">
         <img data-lightbox-image width={slides[0].width} height={slides[0].height} alt="" draggable="false" />
         <button class="screen-nav screen-prev" type="button" data-slide-direction="-1" aria-label={t.screen_previous}>
@@ -127,8 +127,8 @@ const position = (index: number) => t.screen_position.replace('{current}', Strin
   .screenshot-lightbox { position: fixed; inset: 0; box-sizing: border-box; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: clamp(12px, 2.5vw, 32px); border: 0; background: #0c1017f7; color: #f0f2f0; }
   .screenshot-lightbox[open] { display: grid; place-items: center; }
   .screenshot-lightbox::backdrop { background: #05070de6; }
-  .lightbox-inner { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; justify-items: center; gap: 10px; width: min(100%, 1500px); max-height: 100%; }
-  .lightbox-close { justify-self: end; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid #ffffff40; border-radius: 50%; background: #1b222d; color: inherit; cursor: pointer; }
+  .lightbox-inner { display: grid; grid-template-rows: minmax(0, 1fr) auto; justify-items: center; gap: 10px; width: min(100%, 1500px); max-height: 100%; }
+  .lightbox-close { position: fixed; z-index: 3; top: clamp(12px, 2.5vw, 32px); right: clamp(12px, 2.5vw, 32px); display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid #ffffff40; border-radius: 50%; background: #1b222d; color: inherit; cursor: pointer; }
   .lightbox-close:hover { background: #30294a; border-color: #a78bff; }
   .lightbox-frame { display: grid; place-items: center; position: relative; width: 100%; min-height: 0; }
   .lightbox-frame img { display: block; width: auto; height: auto; max-width: 100%; max-height: calc(100dvh - 150px); object-fit: contain; box-shadow: 0 20px 65px #0009; user-select: none; -webkit-user-select: none; -webkit-user-drag: none; }
