@@ -4,7 +4,7 @@ const root = new URL('../dist/', import.meta.url);
 const locales = ['en', 'zh-CN', 'zh-TW', 'ja', 'ko', 'fr', 'de', 'es'];
 const pages = ['home', 'guide', 'privacy'];
 const origin = 'https://vivida.fynxlab.com/';
-const release = 'https://github.com/fynx-lab/vivida-release/releases/download/v0.0.2/vivida-0.0.2-windows-x64-setup.exe';
+const release = 'https://github.com/fynx-lab/vivida-release/releases/download/v0.0.3/vivida-0.0.3-windows-x64-setup.exe';
 const route = (locale, page) => `${locale === 'en' ? '' : `${locale}/`}${page === 'home' ? '' : `${page}/`}`;
 const expected = (locale, page) => origin + route(locale, page);
 const local = (locale, page) => '/' + route(locale, page);
@@ -36,6 +36,7 @@ for (const locale of locales) for (const page of pages) {
     const text = JSON.parse(readFileSync(new URL(`../src/i18n/${locale}.json`, import.meta.url), 'utf8'));
     assert(html.includes('src="/hero.png"'), `${id}: first screenshot path`);
     assert(html.includes('/hero-2.png'), `${id}: second screenshot path`);
+    assert(html.includes('src="/map.png"'), `${id}: map screenshot`);
     assert(html.includes('data-screenshots') && html.includes('<dialog'), `${id}: slideshow and lightbox`);
     assert(/<dialog[^>]*><button class="lightbox-close"/.test(html), `${id}: close button must not be inside image layout`);
     if (locale === 'zh-CN') assert(html.includes('目录秒开，图像即刻就位。'), 'zh-CN/home: approved hero copy');
@@ -58,12 +59,12 @@ for (const locale of locales) for (const page of pages) {
       assert(html.includes('api.github.com') && html.includes('state.txt'), `${id}: privacy facts`);
     }
   }
-  for (const match of html.matchAll(/(?:src|href)="(\/(?:_astro\/[^"?#]+|hero(?:-2)?\.png|icon\.png|favicon\.ico))"/g)) {
+  for (const match of html.matchAll(/(?:src|href)="(\/(?:_astro\/[^"?#]+|hero(?:-2)?\.png|map\.png|icon\.png|favicon\.ico))"/g)) {
     const file = match[1].slice(1);
     assert(existsSync(out(file)), `${id}: missing asset ${file}`);
   }
 }
-for (const file of ['CNAME', 'hero.png', 'hero-2.png', 'icon.png', 'favicon.ico', 'sitemap-index.xml', 'sitemap-0.xml']) assert(existsSync(out(file)), `missing ${file}`);
+for (const file of ['CNAME', 'hero.png', 'hero-2.png', 'map.png', 'icon.png', 'favicon.ico', 'sitemap-index.xml', 'sitemap-0.xml']) assert(existsSync(out(file)), `missing ${file}`);
 assert(readFileSync(out('CNAME'), 'utf8').trim() === 'vivida.fynxlab.com', 'CNAME must preserve custom Pages domain');
 const sitemapIndex = readFileSync(out('sitemap-index.xml'), 'utf8');
 assert(sitemapIndex.includes(origin + 'sitemap-0.xml'), 'sitemap index URL');
