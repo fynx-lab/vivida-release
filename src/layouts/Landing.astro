@@ -46,6 +46,14 @@ const features = [
         </li>)}
       </ol>
     </section>
+    <section class="map-view wrap" aria-labelledby="map-title">
+      <div class="map-copy">
+        <p class="eyebrow">{t.map_eyebrow}</p>
+        <h2 id="map-title">{t.map_title}</h2>
+        <p>{t.map_body}</p>
+      </div>
+      <img class="map-shot" src="/map.png" width="1200" height="830" alt={t.map_alt} />
+    </section>
     <section class="formats wrap" aria-labelledby="formats-title">
       <div class="format-copy"><h2 id="formats-title">{t.formats_title}</h2><p>{t.formats_description}</p></div>
       <ul class="format-list">{formats.map((format) => <li>{format}</li>)}</ul>

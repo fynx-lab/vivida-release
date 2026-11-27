@@ -31,8 +31,8 @@ export const documents: Record<Locale, typeof docsEn> = {
 export type PageKind = 'home' | 'guide' | 'privacy';
 
 export const release = {
-  version: '0.0.2',
-  download: 'https://github.com/fynx-lab/vivida-release/releases/download/v0.0.2/vivida-0.0.2-windows-x64-setup.exe',
+  version: '0.0.3',
+  download: 'https://github.com/fynx-lab/vivida-release/releases/download/v0.0.3/vivida-0.0.3-windows-x64-setup.exe',
   latest: 'https://github.com/fynx-lab/vivida-release/releases/latest',
   issues: 'https://github.com/fynx-lab/vivida-release/issues',
 };
