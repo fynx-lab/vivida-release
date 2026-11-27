@@ -52,7 +52,7 @@ for (const locale of locales) for (const page of pages) {
     assert(!html.includes('src="/hero.png"') && !html.includes('/hero-2.png'), `${id}: no homepage slideshow`);
     assert(html.includes(`pageKind = "${page}"`), `${id}: root-only redirect must be disabled`);
     if (page === 'guide') {
-      for (const section of ['favorites', 'grid', 'viewer', 'shortcuts']) assert(html.includes(`id="${section}"`), `${id}: guide ${section}`);
+      for (const section of ['favorites', 'grid', 'viewer', 'map', 'shortcuts']) assert(html.includes(`id="${section}"`), `${id}: guide ${section}`);
       assert(html.includes('Ctrl + C') && html.includes('Shift + R'), `${id}: shortcuts`);
     } else {
       for (const section of ['privacy', 'local', 'updates', 'website', 'terms', 'changes']) assert(html.includes(`id="${section}"`), `${id}: policy ${section}`);

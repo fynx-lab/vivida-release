@@ -10,10 +10,12 @@ const guideSections = [
   ['favorites', t.guide_fav_title, t.guide_fav],
   ['grid', t.guide_grid_title, t.guide_grid],
   ['viewer', t.guide_viewer_title, t.guide_viewer],
+  ['map', t.guide_map_title, t.guide_map],
   ['settings', t.guide_settings_title, t.guide_settings],
 ];
 const privacySections = [
   ['local', t.privacy_local_title, t.privacy_local],
+  ['map', t.privacy_map_title, t.privacy_map],
   ['updates', t.privacy_update_title, t.privacy_update],
   ['website', t.privacy_web_title, t.privacy_web],
   ['questions', t.privacy_contact_title, t.privacy_contact],
@@ -59,7 +61,7 @@ const description = page === 'guide' ? t.guide_description : t.policy_descriptio
         <h2>{heading}</h2><p>{body}</p>
       </section>)}
       <section id="shortcuts" class="document-section">
-        <span class="section-number" aria-hidden="true">06</span><h2>{t.guide_shortcuts_title}</h2>
+        <span class="section-number" aria-hidden="true">{String(guideSections.length + 1).padStart(2, '0')}</span><h2>{t.guide_shortcuts_title}</h2>
         <div class="shortcut-group"><h3>{t.guide_grid_shortcuts}</h3><div class="shortcut-head"><span>{t.shortcut_keys}</span><span>{t.shortcut_action}</span></div>
           <dl>{gridShortcuts.map(([keys, action]) => <div class="shortcut-row"><dt><kbd>{keys}</kbd></dt><dd>{action}</dd></div>)}</dl>
         </div>
@@ -76,7 +78,7 @@ const description = page === 'guide' ? t.guide_description : t.policy_descriptio
       </section>
       <section id="terms" class="document-block"><h2>{t.terms_title}</h2>
         {termsSections.map(([id, heading, body]) => <section id={id} class="document-subsection"><h3>{heading}</h3><p>{body}</p></section>)}
-        <p class="updated-date">{t.updated}: <time datetime="2026-11-25">2026-11-25</time></p>
+        <p class="updated-date">{t.updated}: <time datetime="2026-11-28">2026-11-28</time></p>
         <p class="legal-note">{t.legal_review}</p>
       </section>
     </div>}
