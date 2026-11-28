@@ -12,7 +12,7 @@
   "privacy_update_title": "Comprobación de actualizaciones",
   "privacy_update": "En Windows, alrededor de un minuto después de iniciar, Vivida consulta por HTTPS la última versión pública en api.github.com. También puedes comprobarla manualmente en Ajustes → Acerca de. La solicitud identifica la versión de la aplicación; GitHub recibe datos de conexión habituales como la dirección IP. No se envían fotos ni el archivo de ajustes. Vivida no instala actualizaciones automáticamente.",
   "privacy_web_title": "Sitio web y terceros",
-  "privacy_web": "Este sitio no incorpora scripts propios de análisis ni seguimiento. Una elección explícita de idioma puede guardarse en el localStorage del navegador. GitHub Pages aloja el sitio y GitHub ofrece las descargas y el seguimiento de incidencias. Esos servicios pueden tratar datos habituales de solicitudes según sus políticas; no controlamos cuánto tiempo conservan sus registros.",
+  "privacy_web": "La aplicación Vivida no incluye scripts de telemetría. Una elección explícita de idioma puede guardarse en el localStorage del navegador. GitHub Pages aloja el sitio y GitHub ofrece las descargas y el seguimiento de incidencias. Esos servicios pueden tratar datos habituales de solicitudes según sus políticas; no controlamos cuánto tiempo conservan sus registros.",
   "github_privacy": "Declaración de privacidad de GitHub",
   "privacy_contact_title": "Preguntas",
   "privacy_contact": "Para preguntas no confidenciales, utiliza el registro público de incidencias. No publiques fotos privadas, datos personales ni rutas de archivos sensibles en una incidencia pública.",

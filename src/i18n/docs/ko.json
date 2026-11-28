@@ -12,7 +12,7 @@
   "privacy_update_title": "업데이트 확인",
   "privacy_update": "Windows에서는 실행 약 1분 후 HTTPS로 api.github.com의 공개 최신 릴리스를 확인합니다. '설정 → 정보'에서 수동 확인도 가능합니다. 요청에는 앱 버전이 포함되며 GitHub는 IP 주소 같은 일반 접속 정보를 받을 수 있습니다. 사진과 로컬 설정 파일은 전송하지 않습니다. 업데이트는 자동 설치되지 않습니다.",
   "privacy_web_title": "웹사이트와 외부 서비스",
-  "privacy_web": "이 사이트에는 자체 분석·추적 스크립트가 없습니다. 언어를 직접 선택하면 브라우저 localStorage에 저장될 수 있습니다. GitHub Pages가 사이트를 호스팅하고 GitHub가 다운로드와 문제 신고를 제공합니다. 해당 서비스는 자체 정책에 따라 일반 요청 정보를 처리할 수 있으며, 저희가 로그 보존 방식을 제어하지 않습니다.",
+  "privacy_web": "Vivida 애플리케이션에는 원격 측정 스크립트가 포함되어 있지 않습니다. 언어를 직접 선택하면 브라우저 localStorage에 저장될 수 있습니다. GitHub Pages가 사이트를 호스팅하고 GitHub가 다운로드와 문제 신고를 제공합니다. 해당 서비스는 자체 정책에 따라 일반 요청 정보를 처리할 수 있으며, 저희가 로그 보존 방식을 제어하지 않습니다.",
   "github_privacy": "GitHub 개인정보 처리방침",
   "privacy_contact_title": "문의",
   "privacy_contact": "민감하지 않은 질문은 공개 Issues로 남겨 주세요. 공개 이슈에 개인 사진, 개인정보 또는 민감한 파일 경로를 게시하지 마세요.",

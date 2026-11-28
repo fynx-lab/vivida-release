@@ -12,7 +12,7 @@
   "privacy_update_title": "Update-Prüfung",
   "privacy_update": "Unter Windows fragt Vivida etwa eine Minute nach dem Start über HTTPS die neueste öffentliche Version bei api.github.com ab. Unter Einstellungen → Über kannst du selbst prüfen. Die Anfrage enthält die App-Version; GitHub empfängt übliche Verbindungsdaten wie die IP-Adresse. Weder Bilder noch die Einstellungsdatei werden übertragen. Updates werden nicht automatisch installiert.",
   "privacy_web_title": "Website und Drittanbieter",
-  "privacy_web": "Diese Website enthält keine eigenen Analyse- oder Tracking-Skripte. Eine ausdrücklich gewählte Sprache kann im localStorage des Browsers gespeichert werden. GitHub Pages hostet die Seite; GitHub stellt Downloads und das Ticketsystem bereit. Diese Dienste können übliche Anfragedaten nach eigenen Richtlinien verarbeiten; ihre Log-Aufbewahrung kontrollieren wir nicht.",
+  "privacy_web": "Die Vivida-Anwendung enthält keine Telemetrie-Skripte. Eine ausdrücklich gewählte Sprache kann im localStorage des Browsers gespeichert werden. GitHub Pages hostet die Seite; GitHub stellt Downloads und das Ticketsystem bereit. Diese Dienste können übliche Anfragedaten nach eigenen Richtlinien verarbeiten; ihre Log-Aufbewahrung kontrollieren wir nicht.",
   "github_privacy": "Datenschutzerklärung von GitHub",
   "privacy_contact_title": "Fragen",
   "privacy_contact": "Für nicht vertrauliche Fragen nutze bitte das öffentliche Ticketsystem. Poste dort keine privaten Bilder, personenbezogenen Angaben oder sensiblen Dateipfade.",

@@ -12,7 +12,7 @@
   "privacy_update_title": "檢查更新",
   "privacy_update": "在 Windows 上，程式啟動約一分鐘後會透過 HTTPS 向 api.github.com 查詢公開的最新版本；你也可以在「設定 → 關於」手動檢查。請求會標示應用程式版本，GitHub 會收到 IP 位址等一般連線資訊。圖片及本機設定檔不會隨請求傳送。Vivida 不會自動安裝更新。",
   "privacy_web_title": "網站與第三方服務",
-  "privacy_web": "本站沒有自行加入的分析或追蹤程式。手動選擇語言後，瀏覽器可能將該選擇儲存在 localStorage。網站由 GitHub Pages 託管，下載及問題回報由 GitHub 提供；這些服務可能依各自政策處理一般請求資訊，我們無法控制其紀錄保存方式。",
+  "privacy_web": "Vivida 應用程式中不包含遙測腳本。手動選擇語言後，瀏覽器可能將該選擇儲存在 localStorage。網站由 GitHub Pages 託管，下載及問題回報由 GitHub 提供；這些服務可能依各自政策處理一般請求資訊，我們無法控制其紀錄保存方式。",
   "github_privacy": "GitHub 隱私聲明",
   "privacy_contact_title": "疑問與回饋",
   "privacy_contact": "非敏感問題可透過公開的問題回報頁面聯絡。請勿在公開 Issue 中張貼私人照片、個人資訊或敏感檔案路徑。",

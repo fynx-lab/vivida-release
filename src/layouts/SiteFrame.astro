@@ -29,6 +29,7 @@ const sharingImage = new URL(asset(page === 'home' ? 'hero.png' : 'icon.png'), A
     <meta property="og:image" content={sharingImage} />
     <meta name="twitter:card" content={page === 'home' ? 'summary_large_image' : 'summary'} />
     <link rel="sitemap" type="application/xml" href={new URL(asset('sitemap-index.xml'), Astro.site).href} />
+    <script defer src="https://ma.4ris.xyz/script.js"></script>
   </head>
   <body>
     <div class="site-shell">
