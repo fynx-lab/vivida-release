@@ -14,6 +14,7 @@ import docsKo from '../i18n/docs/ko.json';
 import docsFr from '../i18n/docs/fr.json';
 import docsDe from '../i18n/docs/de.json';
 import docsEs from '../i18n/docs/es.json';
+import releaseNotes from '../content/release-notes.md?raw';
 
 export const locales = ['en', 'zh-CN', 'zh-TW', 'ja', 'ko', 'fr', 'de', 'es'] as const;
 export type Locale = typeof locales[number];
@@ -32,6 +33,7 @@ export type PageKind = 'home' | 'guide' | 'privacy';
 
 export const release = {
   version: '0.0.3',
+  notes: releaseNotes,
   download: 'https://github.com/fynx-lab/vivida-release/releases/download/v0.0.3/vivida-0.0.3-windows-x64-setup.exe',
   latest: 'https://github.com/fynx-lab/vivida-release/releases/latest',
   issues: 'https://github.com/fynx-lab/vivida-release/issues',

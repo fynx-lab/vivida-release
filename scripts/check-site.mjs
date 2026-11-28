@@ -56,7 +56,7 @@ for (const locale of locales) for (const page of pages) {
       assert(html.includes('Ctrl + C') && html.includes('Shift + R'), `${id}: shortcuts`);
     } else {
       for (const section of ['privacy', 'local', 'updates', 'website', 'terms', 'changes']) assert(html.includes(`id="${section}"`), `${id}: policy ${section}`);
-      assert(html.includes('api.github.com') && html.includes('state.txt'), `${id}: privacy facts`);
+      assert(html.includes('vivida.fynxlab.com') && html.includes('state.txt') && !html.includes('api.github.com'), `${id}: privacy facts`);
     }
   }
   for (const match of html.matchAll(/(?:src|href)="(\/(?:_astro\/[^"?#]+|hero(?:-2)?\.png|map\.png|icon\.png|favicon\.ico))"/g)) {
@@ -64,7 +64,12 @@ for (const locale of locales) for (const page of pages) {
     assert(existsSync(out(file)), `${id}: missing asset ${file}`);
   }
 }
-for (const file of ['CNAME', 'hero.png', 'hero-2.png', 'map.png', 'icon.png', 'favicon.ico', 'sitemap-index.xml', 'sitemap-0.xml']) assert(existsSync(out(file)), `missing ${file}`);
+for (const file of ['CNAME', 'hero.png', 'hero-2.png', 'map.png', 'icon.png', 'favicon.ico', 'sitemap-index.xml', 'sitemap-0.xml', 'update.json']) assert(existsSync(out(file)), `missing ${file}`);
+const manifest = JSON.parse(readFileSync(out('update.json'), 'utf8'));
+assert(/^v\d+\.\d+\.\d+$/.test(manifest.tag_name), 'update manifest: stable version tag');
+assert(typeof manifest.body === 'string', 'update manifest: release notes');
+assert(manifest.download_url === release, 'update manifest: same installer as home page');
+assert(manifest.download_url.includes(`/releases/download/${manifest.tag_name}/`), 'update manifest: download tag must match version');
 assert(readFileSync(out('CNAME'), 'utf8').trim() === 'vivida.fynxlab.com', 'CNAME must preserve custom Pages domain');
 const sitemapIndex = readFileSync(out('sitemap-index.xml'), 'utf8');
 assert(sitemapIndex.includes(origin + 'sitemap-0.xml'), 'sitemap index URL');
